@@ -1,7 +1,7 @@
 import json
 import os
 
-FILE_NAME = "data/health_data.json"
+FILE_NAME = "../data/health_data.json"
 
 
 def save_health_data(data):

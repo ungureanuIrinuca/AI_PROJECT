@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from storage.storage import save_health_data, load_health_data
 from storage.utils import validate_data, normalize_data
+from analize.health_agent import HealthAgent
 from storage.utils import (
     validate_data,
     normalize_data,
@@ -16,6 +17,7 @@ def home():
 
 @app.route("/analyze", methods=["POST"])
 def analyze():
+
     data = request.json
 
     if not data:
@@ -24,26 +26,11 @@ def analyze():
             "message": "No data received"
         }), 400
 
-    valid, message = validate_data(data)
+    agent = HealthAgent()
 
-    if not valid:
-        return jsonify({
-            "status": "error",
-            "message": message
-        }), 400
+    result = agent.analyze(data)
 
-    normalized_data = normalize_data(data)
-
-    recommendations = generate_recommendations(data)
-
-    save_health_data(normalized_data)
-
-    return jsonify({
-        "status": "success",
-        "message": "Data analyzed successfully",
-        "data": normalized_data,
-        "recommendations": recommendations
-    })
+    return jsonify(result)
 
 @app.route("/health-data", methods=["GET"])
 def get_health_data():

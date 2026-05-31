@@ -1,18 +1,9 @@
-import json
 import ollama
 
-from analysis import (
+from analize.analysis import (
     analyze_heart_rate,
     analyze_sleep,
     calculate_health_score
-)
-
-from trend_analysis import (
-    generate_health_insights
-)
-
-from report_generator import (
-    generate_weekly_report
 )
 
 
@@ -21,120 +12,116 @@ class HealthAgent:
     def __init__(self, model="mistral"):
         self.__model = model
 
-    def __select_tool(self, user_prompt):
+    def analyze(self, data):
 
-        system_prompt = """
-        You are a routing agent.
+        heart_rate_analysis = analyze_heart_rate(
+            [data["heart_rate"]]
+        )
 
-        Available tools:
+        sleep_analysis = analyze_sleep(
+            data["sleep_hours"]
+        )
 
-        heart_rate_analysis
-        sleep_analysis
-        health_score
-        trend_analysis
-        weekly_report
+        health_score_analysis = calculate_health_score(
+            [data["heart_rate"]],
+            data["sleep_hours"],
+            data["steps"]
+        )
 
-        Return ONLY the tool name.
-        """
+        prompt = f"""
+You are a Business Intelligence health assistant.
+
+Heart Rate Analysis:
+{heart_rate_analysis}
+
+Sleep Analysis:
+{sleep_analysis}
+
+Health Score Analysis:
+{health_score_analysis}
+
+Generate:
+
+1. Three business intelligence insights.
+2. Three personalized recommendations.
+
+Return EXACTLY this format:
+
+INSIGHTS:
+- insight
+- insight
+- insight
+
+RECOMMENDATIONS:
+- recommendation
+- recommendation
+- recommendation
+"""
 
         response = ollama.chat(
             model=self.__model,
             messages=[
                 {
-                    "role": "system",
-                    "content": system_prompt
-                },
-                {
                     "role": "user",
-                    "content": user_prompt
+                    "content": prompt
                 }
             ]
         )
 
-        return response["message"]["content"].strip()
+        llm_response = response["message"]["content"]
 
-    def process_request(
-            self,
-            user_prompt,
-            data):
+        insights = []
+        recommendations = []
 
-        selected_tool = self.__select_tool(
-            user_prompt
-        )
+        current_section = None
 
-        if selected_tool == "heart_rate_analysis":
+        for line in llm_response.split("\n"):
 
-            result = analyze_heart_rate(
-                data["heart_rate"]
-            )
+            line = line.strip()
 
-        elif selected_tool == "sleep_analysis":
+            if not line:
+                continue
 
-            result = analyze_sleep(
-                data["sleep_hours"]
-            )
+            if line.upper().startswith(
+                    "INSIGHTS"):
+                current_section = "insights"
+                continue
 
-        elif selected_tool == "health_score":
+            if line.upper().startswith(
+                    "RECOMMENDATIONS"):
+                current_section = "recommendations"
+                continue
 
-            result = calculate_health_score(
-                data["heart_rate"],
-                data["sleep_hours"],
-                data["steps"]
-            )
+            if line.startswith("-"):
+                line = line[1:].strip()
 
-        elif selected_tool == "trend_analysis":
+            if current_section == "insights":
+                insights.append(line)
 
-            result = generate_health_insights(
-                data["steps_history"],
-                data["sleep_history"]
-            )
-
-        elif selected_tool == "weekly_report":
-
-            result = generate_weekly_report(
-                data["heart_rate_history"],
-                data["sleep_history"],
-                data["steps_history"]
-            )
-
-        else:
-
-            return {
-                "status": "error",
-                "message":
-                    f"Unknown tool: {selected_tool}"
-            }
-
-        explanation = ollama.chat(
-            model=self.__model,
-            messages=[
-                {
-                    "role": "system",
-                    "content":
-                    """
-                    You are a health assistant.
-
-                    Explain the result clearly.
-
-                    Mention important observations.
-
-                    Keep the explanation concise.
-                    """
-                },
-                {
-                    "role": "user",
-                    "content":
-                    f"Explain this analysis:\n{result}"
-                }
-            ]
-        )
+            elif current_section == "recommendations":
+                recommendations.append(line)
 
         return {
-            "status": "success",
-            "selected_tool":
-                selected_tool,
-            "tool_result":
-                result,
-            "llm_response":
-                explanation["message"]["content"]
+
+            "health_score":
+                health_score_analysis[
+                    "health_score"
+                ],
+
+            "health_status":
+                health_score_analysis[
+                    "health_status"
+                ],
+
+            "heart_rate_analysis":
+                heart_rate_analysis,
+
+            "sleep_analysis":
+                sleep_analysis,
+
+            "business_insights":
+                insights[:3],
+
+            "recommendations":
+                recommendations[:3]
         }

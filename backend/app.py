@@ -4,6 +4,7 @@ from analize.analysis import average_steps, average_calories, average_sleep_hour
 from storage.storage import save_health_data, load_health_data
 from storage.utils import validate_data, normalize_data, generate_recommendations
 
+
 app = Flask(__name__)
 
 

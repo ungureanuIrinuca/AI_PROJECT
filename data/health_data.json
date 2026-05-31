@@ -1,1 +1,14 @@
-[]
+[
+    {
+        "heart_rate": 75,
+        "sleep_hours": 8,
+        "normalized_heart_rate": 0.22,
+        "normalized_sleep": 0.33
+    },
+    {
+        "heart_rate": 75,
+        "sleep_hours": 8,
+        "normalized_heart_rate": 0.22,
+        "normalized_sleep": 0.33
+    }
+]

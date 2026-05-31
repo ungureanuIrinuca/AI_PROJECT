@@ -36,3 +36,4 @@ def load_health_data():
 
         except json.JSONDecodeError:
             return []
+

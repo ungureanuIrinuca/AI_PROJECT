@@ -1,11 +1,29 @@
 from flask import Flask, request, jsonify
 
+from analize.analysis import (
+    average_steps,
+    average_calories,
+    average_sleep_hours,
+    average_heart_rate_dataset
+)
+
 app = Flask(__name__)
 
 
 @app.route("/")
 def home():
     return "Health Monitor API works!"
+
+
+@app.route("/dashboard")
+def dashboard():
+
+    return jsonify({
+        "average_steps": average_steps(),
+        "average_calories": average_calories(),
+        "average_sleep_hours": average_sleep_hours(),
+        "average_heart_rate": average_heart_rate_dataset()
+    })
 
 
 @app.route("/analyze", methods=["POST"])

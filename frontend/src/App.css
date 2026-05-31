@@ -1,0 +1,154 @@
+body {
+    margin: 0;
+    background: #0d1117;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.watch {
+
+    width: 340px;
+
+    min-height: 650px;
+
+    background: #111827;
+
+    border-radius: 40px;
+
+    border: 12px solid #222;
+
+    padding: 20px;
+
+    box-shadow:
+            0 0 25px rgba(0,0,0,0.7),
+            0 0 15px #00d4ff;
+
+    overflow-y: auto;
+}
+
+.watch-time {
+
+    text-align: center;
+
+    font-size: 30px;
+
+    font-weight: bold;
+}
+
+.watch-header {
+
+    text-align: center;
+
+    color: #00d4ff;
+
+    margin-top: 10px;
+
+    margin-bottom: 20px;
+}
+
+.health-score {
+
+    text-align: center;
+
+    margin-bottom: 25px;
+}
+
+.score-value {
+
+    font-size: 52px;
+
+    font-weight: bold;
+
+    color: #00d4ff;
+}
+
+.score-text {
+
+    font-size: 14px;
+}
+
+.metric-card {
+
+    background: #1f2937;
+
+    padding: 15px;
+
+    border-radius: 15px;
+
+    margin-bottom: 10px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+button {
+
+    width: 100%;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    margin-top: 10px;
+
+    cursor: pointer;
+
+    font-size: 15px;
+}
+
+.sync-btn {
+
+    background: #00d4ff;
+
+    color: black;
+
+    font-weight: bold;
+}
+
+.analyze-btn {
+
+    background: #22c55e;
+
+    color: white;
+
+    font-weight: bold;
+}
+
+.loading {
+
+    text-align: center;
+
+    margin-top: 15px;
+
+    font-weight: bold;
+}
+
+.recommendations {
+
+    margin-top: 20px;
+}
+
+.recommendation-card {
+
+    background: #1f2937;
+
+    padding: 12px;
+
+    border-radius: 12px;
+
+    margin-bottom: 10px;
+
+    text-align: left;
+}

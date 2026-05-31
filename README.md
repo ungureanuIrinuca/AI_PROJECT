@@ -36,10 +36,9 @@ Aplicația analizează date precum:
 
 ---
 # Licență
-
-Proiect realizat în scop educațional.
+  Proiect realizat în scop educațional.
 ---
-#Fluxul aplicației
+# Fluxul aplicației
 1. Utilizatorul introduce date biometrice provenite de la smartwatch.
 2. Datele sunt validate și normalizate.
 3. Sistemul analizează ritmul cardiac, somnul și activitatea fizică.
@@ -47,7 +46,7 @@ Proiect realizat în scop educațional.
 5. Datele sunt salvate pentru analiză ulterioară.
 6. Dashboard-ul afișează rezultatele și recomandările.
 ---
-## Arhitectura Proiectului
+# Arhitectura Proiectului
 
 ```text
 health-monitor-ai/
@@ -68,7 +67,7 @@ health-monitor-ai/
 └── README.md
 ```
 ---
-#Istalare
+# Istalare
 - clonează repository-ul:
    - git clone
 - instalează dependențele
@@ -78,15 +77,15 @@ health-monitor-ai/
 - pentru dashboard
    - streamlit run frontend/app.py
 ---
-#Exemplu de utilizare
-##Exemplu input
+# Exemplu de utilizare
+## Exemplu input
 {
   "heart_rate": 75,
   "sleep_hours": 7.5,
   "steps": 8500
 }
 
-##Exemplu Output
+## Exemplu Output
 
 {
   "health_score": 84,

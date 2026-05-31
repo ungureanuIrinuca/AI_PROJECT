@@ -1,13 +1,16 @@
+import sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from flask import Flask, request, jsonify
+from flask_cors import CORS
+
 from storage.storage import save_health_data, load_health_data
-from storage.utils import validate_data, normalize_data
+from storage.utils import validate_data, normalize_data, generate_recommendations
 from analize.health_agent import HealthAgent
-from storage.utils import (
-    validate_data,
-    normalize_data,
-    generate_recommendations
-)
+
 app = Flask(__name__)
+CORS(app)  # permite request-uri de la React (localhost:5173)
 
 
 @app.route("/")
@@ -26,11 +29,33 @@ def analyze():
             "message": "No data received"
         }), 400
 
-    agent = HealthAgent()
+    # Validare date
+    is_valid, message = validate_data(data)
+    if not is_valid:
+        return jsonify({
+            "status": "error",
+            "message": message
+        }), 400
 
-    result = agent.analyze(data)
+    # Salvare date normalizate
+    save_health_data(data)
+
+    # Incearca AI agent (Ollama), fallback la reguli simple
+    try:
+        agent = HealthAgent()
+        result = agent.analyze(data)
+    except Exception:
+        # Fallback daca Ollama nu e instalat/pornit
+        recommendations = generate_recommendations(data)
+        result = {
+            "health_score": None,
+            "health_status": "unavailable",
+            "recommendations": recommendations,
+            "business_insights": []
+        }
 
     return jsonify(result)
+
 
 @app.route("/health-data", methods=["GET"])
 def get_health_data():
@@ -43,19 +68,10 @@ def stats():
     data = load_health_data()
 
     if len(data) == 0:
-        return jsonify({
-            "message": "No data available"
-        })
+        return jsonify({"message": "No data available"})
 
-    avg_hr = sum(
-        item["heart_rate"]
-        for item in data
-    ) / len(data)
-
-    avg_sleep = sum(
-        item["sleep_hours"]
-        for item in data
-    ) / len(data)
+    avg_hr = sum(item["heart_rate"] for item in data) / len(data)
+    avg_sleep = sum(item["sleep_hours"] for item in data) / len(data)
 
     return jsonify({
         "records": len(data),
@@ -68,16 +84,10 @@ def stats():
 def risk_analysis():
 
     data = load_health_data()
-
-    risky = []
-
-    for item in data:
-
-        if (
-                item["heart_rate"] > 100 or
-                item["sleep_hours"] < 6
-        ):
-            risky.append(item)
+    risky = [
+        item for item in data
+        if item["heart_rate"] > 100 or item["sleep_hours"] < 6
+    ]
 
     return jsonify({
         "risky_records": len(risky),

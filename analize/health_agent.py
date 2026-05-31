@@ -9,7 +9,7 @@ from analize.analysis import (
 
 class HealthAgent:
 
-    def __init__(self, model="mistral"):
+    def __init__(self, model="tinyllama"):
         self.__model = model
 
     def analyze(self, data):

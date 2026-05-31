@@ -168,14 +168,16 @@ if __name__ == "__main__":
 
 
 
-
 import pandas as pd
+import os
 
-steps_df = pd.read_csv("data/dailySteps_merged.csv")
-sleep_df = pd.read_csv("data/sleepDay_merged.csv")
-calories_df = pd.read_csv("data/dailyCalories_merged.csv")
-heart_df = pd.read_csv("data/heartrate_seconds_merged.csv")
+_BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_DATA = os.path.join(_BASE, "data")
 
+steps_df = pd.read_csv(os.path.join(_DATA, "dailySteps_merged.csv"))
+sleep_df = pd.read_csv(os.path.join(_DATA, "sleepDay_merged.csv"))
+calories_df = pd.read_csv(os.path.join(_DATA, "dailyCalories_merged.csv"))
+heart_df = pd.read_csv(os.path.join(_DATA, "heartrate_seconds_merged.csv"))
 
 def average_steps():
     return round(steps_df["StepTotal"].mean(), 2)

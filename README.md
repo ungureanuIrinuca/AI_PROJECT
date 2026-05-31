@@ -36,8 +36,11 @@ Aplicația analizează date precum:
 
 ---
 # Licență
+
   Proiect realizat în scop educațional.
+  
 ---
+
 # Fluxul aplicației
 1. Utilizatorul introduce date biometrice provenite de la smartwatch.
 2. Datele sunt validate și normalizate.
@@ -67,7 +70,7 @@ health-monitor-ai/
 └── README.md
 ```
 ---
-# Istalare
+# Instalare
 - clonează repository-ul:
    - git clone
 - instalează dependențele

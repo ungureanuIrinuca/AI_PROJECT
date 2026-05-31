@@ -55,3 +55,47 @@ def normalize_data(data):
         "normalized_sleep":
             normalize_sleep(data["sleep_hours"])
     }
+
+def generate_recommendations(data):
+
+    recommendations = []
+
+    heart_rate = data["heart_rate"]
+    sleep_hours = data["sleep_hours"]
+
+    if sleep_hours < 6:
+        recommendations.append(
+            "You should increase your sleep duration to at least 7-8 hours per night."
+        )
+
+    elif sleep_hours > 9:
+        recommendations.append(
+            "You may be oversleeping. Monitor your sleep schedule."
+        )
+
+    else:
+        recommendations.append(
+            "Your sleep duration is within a healthy range."
+        )
+
+    if heart_rate > 100:
+        recommendations.append(
+            "Your heart rate is elevated. Consider reducing stress and consulting a healthcare professional if this persists."
+        )
+
+    elif heart_rate < 60:
+        recommendations.append(
+            "Your heart rate is lower than average. If you are not an athlete, consider a medical check-up."
+        )
+
+    else:
+        recommendations.append(
+            "Your heart rate is within the normal range."
+        )
+
+    if sleep_hours < 6 and heart_rate > 100:
+        recommendations.append(
+            "Insufficient sleep may contribute to an increased heart rate."
+        )
+
+    return recommendations

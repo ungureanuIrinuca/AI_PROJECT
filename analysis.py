@@ -1,50 +1,167 @@
-def analyze_heart_rate(hr):
+# analysis.py
 
-    if hr > 100:
-        return "High heart rate"
+def analyze_heart_rate(heart_rate_data):
+    """
+    Analizeaza ritmul cardiac.
 
-    if hr < 50:
-        return "Low heart rate"
+    Parametri:
+        heart_rate_data - lista de valori heart rate
 
-    return "Normal heart rate"
+    Returneaza:
+        dict cu statistici si status
+    """
 
+    if not heart_rate_data:
+        return {
+            "status": "error",
+            "message": "No heart rate data provided"
+        }
 
-def analyze_sleep(hours):
+    avg_hr = sum(heart_rate_data) / len(heart_rate_data)
+    min_hr = min(heart_rate_data)
+    max_hr = max(heart_rate_data)
 
-    if hours < 6:
-        return "Insufficient sleep"
-
-    return "Healthy sleep duration"
-
-
-def calculate_health_score(hr, sleep):
-
-    score = 100
-
-    if hr > 100 or hr < 50:
-        score -= 20
-
-    if sleep < 6:
-        score -= 30
-
-    return max(score, 0)
-
-
-def analyze_health(data):
-
-    heart_rate = data["heart_rate"]
-    sleep_hours = data["sleep_hours"]
-
-    heart_result = analyze_heart_rate(heart_rate)
-    sleep_result = analyze_sleep(sleep_hours)
-
-    score = calculate_health_score(
-        heart_rate,
-        sleep_hours
-    )
+    # Clasificare simpla
+    if avg_hr < 60:
+        condition = "low"
+    elif avg_hr <= 100:
+        condition = "normal"
+    else:
+        condition = "high"
 
     return {
-        "heart_rate_analysis": heart_result,
-        "sleep_analysis": sleep_result,
-        "health_score": score
+        "status": "success",
+        "average_heart_rate": round(avg_hr, 2),
+        "minimum_heart_rate": min_hr,
+        "maximum_heart_rate": max_hr,
+        "condition": condition
     }
+
+
+def analyze_sleep(hours_slept):
+    """
+    Analizeaza calitatea somnului.
+
+    Parametri:
+        hours_slept - numar de ore dormite
+
+    Returneaza:
+        dict cu evaluarea somnului
+    """
+
+    if hours_slept < 0:
+        return {
+            "status": "error",
+            "message": "Invalid sleep duration"
+        }
+
+    if hours_slept < 5:
+        quality = "poor"
+        score = 30
+
+    elif hours_slept < 7:
+        quality = "average"
+        score = 70
+
+    elif hours_slept <= 9:
+        quality = "good"
+        score = 100
+
+    else:
+        quality = "oversleep"
+        score = 60
+
+    return {
+        "status": "success",
+        "hours_slept": hours_slept,
+        "sleep_quality": quality,
+        "sleep_score": score
+    }
+
+
+def calculate_health_score(heart_rate_data, hours_slept, steps):
+    """
+    Calculeaza un scor general de sanatate.
+
+    Parametri:
+        heart_rate_data - lista valori heart rate
+        hours_slept - ore dormite
+        steps - numar pasi
+
+    Returneaza:
+        dict cu health score final
+    """
+
+    heart_rate_analysis = analyze_heart_rate(heart_rate_data)
+    sleep_analysis = analyze_sleep(hours_slept)
+
+    if heart_rate_analysis["status"] == "error":
+        return heart_rate_analysis
+
+    if sleep_analysis["status"] == "error":
+        return sleep_analysis
+
+    score = 0
+
+    # Heart rate contribution
+    if heart_rate_analysis["condition"] == "normal":
+        score += 40
+
+    elif heart_rate_analysis["condition"] == "low":
+        score += 25
+
+    else:
+        score += 15
+
+    # Sleep contribution
+    score += sleep_analysis["sleep_score"] * 0.4
+
+    # Steps contribution
+    if steps >= 10000:
+        score += 20
+
+    elif steps >= 5000:
+        score += 10
+
+    else:
+        score += 5
+
+    final_score = min(round(score), 100)
+
+    # Interpretare scor
+    if final_score >= 85:
+        health_status = "excellent"
+
+    elif final_score >= 70:
+        health_status = "good"
+
+    elif final_score >= 50:
+        health_status = "average"
+
+    else:
+        health_status = "poor"
+
+    return {
+        "status": "success",
+        "health_score": final_score,
+        "health_status": health_status,
+        "heart_rate_analysis": heart_rate_analysis,
+        "sleep_analysis": sleep_analysis,
+        "steps": steps
+    }
+
+
+# Exemplu de testare
+if __name__ == "__main__":
+
+    heart_rate_values = [72, 75, 80, 77, 74]
+    sleep_hours = 7.5
+    daily_steps = 8500
+
+    result = calculate_health_score(
+        heart_rate_values,
+        sleep_hours,
+        daily_steps
+    )
+
+    print(result)

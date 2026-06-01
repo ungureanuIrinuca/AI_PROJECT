@@ -14,14 +14,13 @@ Aplicația analizează date precum:
 
 ---
 # Funcționalități
-- REST API pentru preluarea datelor biometrice
-- Analiza ritmului cardiac
-- Analiza somnului
-- Calcularea unui health score
-- Validarea datelor de intrare
-- Normalizarea valorilor biometrice
-- Salvarea istoricului datelor
-
+- Monitorizarea ritmului cardiac
+- Analiza calității somnului
+- Monitorizarea activității fizice
+- Calcularea unui Health Score
+- Vizualizarea indicatorilor de sănătate
+- Analiza tendințelor în timp
+- Recomandări pentru îmbunătățirea stilului de viață
 ---
 # Tehnologii folosite
 
@@ -49,6 +48,8 @@ Aplicația analizează date precum:
 5. Datele sunt salvate pentru analiză ulterioară.
 6. Dashboard-ul afișează rezultatele și recomandările.
 ---
+# [Logica algoritmilor](https://colab.research.google.com/drive/1VPU3vWQXJq8k8JEKiI8DZLiduVv6XRz3?usp=sharing)
+---
 # Arhitectura Proiectului
 
 ```text
@@ -72,38 +73,13 @@ health-monitor-ai/
 ---
 # Instalare
 - clonează repository-ul:
-   - git clone
+   - git clone [link_git]
 - instalează dependențele
    - pip install -r requirements.txt
 - pornește aplicația
    - python backend/api.py
 - pentru dashboard
    - streamlit run frontend/app.py
----
-# Exemplu de utilizare
-## Exemplu input
-{
-  "heart_rate": 75,
-  "sleep_hours": 7.5,
-  "steps": 8500
-}
-
-## Exemplu Output
-
-{
-  "health_score": 84,
-  "health_status": "good"
-}
----
-# Business Intelligence Features
-
-- Monitorizarea ritmului cardiac
-- Analiza calității somnului
-- Monitorizarea activității fizice
-- Calcularea unui Health Score
-- Vizualizarea indicatorilor de sănătate
-- Analiza tendințelor în timp
-- Recomandări pentru îmbunătățirea stilului de viață
 ---
 # Contributors
 - [ungureanuIrinuca](https://github.com/ungureanuIrinuca)

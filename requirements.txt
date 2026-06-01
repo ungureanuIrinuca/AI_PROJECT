@@ -1,4 +1,5 @@
 Flask==3.0.2
+Flask-Cors==5.0.0
 blinker==1.7.0
 click==8.1.6
 colorama==0.4.6

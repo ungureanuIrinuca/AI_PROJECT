@@ -165,3 +165,42 @@ if __name__ == "__main__":
     )
 
     print(result)
+
+
+
+import pandas as pd
+import os
+
+_BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_DATA = os.path.join(_BASE, "data")
+
+steps_df = pd.read_csv(os.path.join(_DATA, "dailySteps_merged.csv"))
+sleep_df = pd.read_csv(os.path.join(_DATA, "sleepDay_merged.csv"))
+calories_df = pd.read_csv(os.path.join(_DATA, "dailyCalories_merged.csv"))
+heart_df = pd.read_csv(os.path.join(_DATA, "heartrate_seconds_merged.csv"))
+
+def average_steps():
+    return round(steps_df["StepTotal"].mean(), 2)
+
+
+def average_calories():
+    return round(calories_df["Calories"].mean(), 2)
+
+
+def average_sleep_hours():
+    return round(
+        sleep_df["TotalMinutesAsleep"].mean() / 60,
+        2
+    )
+
+
+def average_heart_rate_dataset():
+    return round(
+        heart_df["Value"].mean(),
+        2
+    )
+
+
+
+
+

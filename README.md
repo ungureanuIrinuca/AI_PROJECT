@@ -131,5 +131,8 @@ AI_PROJECT/
 - [andreimihnea05](https://github.com/andreimihnea05)
 ---
 
-# teaser
+# teaser (demo)
+https://drive.google.com/file/d/1zfYCgaOHFUaIX7Kn3OxJV1rYKv8eiXYS/view?usp=sharing
+
+# prezentare tema proiect
 https://drive.google.com/file/d/1FvAA-LW8IN5LZV7VevlUSld_gTMH3vXu/view?usp=sharing

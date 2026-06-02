@@ -292,5 +292,17 @@
         "sleep_hours": 3.8,
         "steps": 2579,
         "calories": 186
+    },
+    {
+        "heart_rate": 71,
+        "sleep_hours": 7.7,
+        "steps": 11080,
+        "calories": 510
+    },
+    {
+        "heart_rate": 124,
+        "sleep_hours": 3.2,
+        "steps": 1326,
+        "calories": 277
     }
 ]

@@ -131,5 +131,5 @@ AI_PROJECT/
 - [andreimihnea05](https://github.com/andreimihnea05)
 ---
 
-
-teaser:[202606012341 (2).mp4](../../../../Downloads/202606012341%20%282%29.mp4)
+# teaser
+https://drive.google.com/file/d/1FvAA-LW8IN5LZV7VevlUSld_gTMH3vXu/view?usp=sharing

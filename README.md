@@ -57,6 +57,8 @@ Aplicația analizează date precum:
 4. Se calculează un Health Score.
 5. Datele sunt salvate pentru analiză ulterioară.
 6. Dashboard-ul afișează rezultatele și recomandările.
+
+![Schema Arhitecturală a Aplicației](schema_arhitecturala.png)
 ---
 # [Logica algoritmilor](https://colab.research.google.com/drive/1VPU3vWQXJq8k8JEKiI8DZLiduVv6XRz3?usp=sharing)
 ---

@@ -3,7 +3,15 @@
 # Despre Proiect
 
 Realizat pentru monitorizarea stării de sănătate, folosind date provenite de la un smartwatch și tehnici AI.
-
+---
+# Problema abordată:
+## Probleme majore în societate:
+- sedentarismul
+- lipsa somnului de calitate
+- ritm cardiac neregulat
+## Scopul proiectului este de a atrage atenția asupra riscurilor de sănătate produse de aceste probleme, dar și de a face aceste date ușor de înțeles/ urmărit
+## De asemenea, aplicația oferă recomandări personalizate pentru îmbunătățirea stilului de viață
+---
 Aplicația analizează date precum:
   - ritmul cardiac
   - somnul
@@ -25,13 +33,15 @@ Aplicația analizează date precum:
 # Tehnologii folosite
 
 ## Backend
-- Python
-- Flask
+- Python (Flask)
+- Ollama (Model: Mistral) pentru inteligență artificială locală
 
-## Alte librării
-- JSON
-- Requests
-- OpenAI API (planificat)
+## Frontend
+- React.js + Vite
+- CSS customizat pentru interfața stil "SmartWatch"
+
+## Pachete și Analiză Date
+- Pandas, Matplotlib, JSON, Requests
 
 ---
 # Licență
@@ -53,33 +63,64 @@ Aplicația analizează date precum:
 # Arhitectura Proiectului
 
 ```text
-health-monitor-ai/
+AI_PROJECT/
 │
+├── .venv/                  # Mediul virtual Python
+├── analize/                # Modulele de procesare matematică și AI
+│   ├── analysis.py         # Calculul scorului și clasificarea datelor
+│   ├── health_agent.py     # Prompt-ul și integrarea cu Ollama
+│   ├── report_generator.py # Rapoarte statistice săptămânale
+│   └── trend_analysis.py   # Calculul trendurilor pe termen lung
 ├── backend/
-│   ├── api.py
-│   ├── analysis.py
-│   └── storage.py
-│
-├── frontend/
-│   └── app.py
-│
-├── ai-agent/
-│
+│   └── app.py              # Serverul Flask API
 ├── data/
-│   └── health_data.json
-│
+│   └── health_data.json    # Baza de date locală
+├── frontend/               # Interfața grafică (Aplicația React)
+│   ├── src/
+│   ├── index.html
+│   ├── package.json
+│   └── ...
+├── service/
+│   └── agent_service.py    # Wrapper-ul pentru serviciul AI
+├── storage/
+│   ├── storage.py          # Logica de scriere/citire JSON
+│   └── utils.py            # Validarea și normalizarea datelor
+├── requirements.txt        # Dependențele Python
 └── README.md
 ```
 ---
-# Instalare
-- clonează repository-ul:
+# Instalarea și Pornirea Aplicatiei
+
+## Requirements
+- Node.js instalat (pentru Frontend)
+- Python 3.x instalat (pentru Backend)
+- Ollama pornit local cu modelul mistral (`ollama run mistral`)
+- ## Clonarea proiectului
    - git clone [link_git]
-- instalează dependențele
-   - pip install -r requirements.txt
-- pornește aplicația
-   - python backend/api.py
-- pentru dashboard
-   - streamlit run frontend/app.py
+   - cd AI_PROJECT
+- ## Instalarea dependențelor de Backend
+   - ## Activarea mediului virtual local
+      - .\.venv\Scripts\activate
+   - ## Instalarea librăriilor din requirements.txt
+      - .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+- ## Instalarea dependențelor de Frontend (React)
+   - cd frontend
+   - npm install
+
+
+## Pornire Backend (Flask)
+  - run backend/app.py
+  - va apărea o linie: "Running on [link]"
+  - accesează linkul
+  - se va deschide o fereastră în browser cu mesajul "Health Monitor API is running!"
+## Pornire Frontend
+  - intră în terminalul Python
+  - scrie următoarele linii:
+     - cd frontend
+     - npm run dev
+  - în terminal va apărea linia: "Local: [Link]"
+  - accesează linkul
+  - se va deschide o fereastră în browser cu interfața Smart Watch-ului
 ---
 # Contributors
 - [ungureanuIrinuca](https://github.com/ungureanuIrinuca)

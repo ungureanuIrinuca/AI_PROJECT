@@ -60,7 +60,7 @@ Aplicația analizează date precum:
 
 ![Schema Arhitecturală a Aplicației](schema_arhitecturala.png)
 ---
-# [Logica algoritmilor](https://colab.research.google.com/drive/1VPU3vWQXJq8k8JEKiI8DZLiduVv6XRz3?usp=sharing)
+# [Logica algoritmilor health score](https://colab.research.google.com/drive/1VPU3vWQXJq8k8JEKiI8DZLiduVv6XRz3?usp=sharing)
 ---
 # Arhitectura Proiectului
 

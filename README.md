@@ -132,7 +132,7 @@ AI_PROJECT/
 ---
 
 # teaser (demo)
-https://drive.google.com/file/d/1zfYCgaOHFUaIX7Kn3OxJV1rYKv8eiXYS/view?usp=sharing
+https://youtu.be/NJrSdp2E2A8
 
 # prezentare tema proiect
-https://drive.google.com/file/d/1FvAA-LW8IN5LZV7VevlUSld_gTMH3vXu/view?usp=sharing
+https://youtu.be/Tz9VVSLCLSk

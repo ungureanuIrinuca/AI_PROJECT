@@ -11,7 +11,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from analize.analysis import analyze_heart_rate, analyze_sleep, calculate_health_score
 from analize.trend_analysis import analyze_steps_trend, analyze_sleep_trend, generate_health_insights
 from analize.report_generator import generate_weekly_report
-from storage.utils import validate_data, generate_recommendations
+from backend.storage.utils import validate_data, generate_recommendations
 
 
 PASS = "\033[92m[PASS]\033[0m"
